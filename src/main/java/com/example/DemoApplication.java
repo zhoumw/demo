@@ -4,12 +4,35 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
+import java.util.concurrent.LinkedBlockingDeque;
+
 @SpringBootApplication
 @EnableCaching
 public class DemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+	private static LinkedBlockingDeque<Boolean> run = new LinkedBlockingDeque<Boolean>();
+
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 * @throws Exception the exception
+	 */
+	public static void main(String[] args) throws Exception {
+
+		SpringApplication springApplication = new SpringApplication(DemoApplication.class);
+
+		springApplication.run(args);
+
+		while (run.take()) {
+		}
+	}
+
+	/**
+	 * Stop.
+	 */
+	static void stop() {
+		run.add(false);
 	}
 
 }
