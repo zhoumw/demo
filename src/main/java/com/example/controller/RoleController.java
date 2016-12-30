@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import com.example.domain.Role;
 import com.example.domain.User;
+import com.example.service.RoleService;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,33 +15,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by zhoumw on 2016/12/28.
  */
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/role")
+public class RoleController {
     @Autowired
-    private UserService userService;
+    private RoleService roleService;
 
     @RequestMapping(value = "/findByName/{name}", method = RequestMethod.PUT)
     public @ResponseBody String findByName(@PathVariable("name") String name){
 
-        User loaded = userService.findByName(name);
+        Role loaded = roleService.findByName(name);
         System.out.println("loaded1"+loaded);
-        User cached = userService.findByName(name);
+        Role cached = roleService.findByName(name);
         System.out.println("cached="+cached);
-//        loaded = userService.findByName(name);
+//        loaded = roleService.findByName(name);
 //        System.out.println("loaded2="+loaded);
         return "ok";
     }
 
     @RequestMapping(value = "/save/{name}", method = RequestMethod.PUT)
     public @ResponseBody String save(@PathVariable("name") String name){
-        userService.save(new User(name, 10));
+        roleService.save(new Role(name));
         return "ok";
     }
 
     @RequestMapping(value = "/delete/{name}", method = RequestMethod.PUT)
     public @ResponseBody String delete(@PathVariable("name") String name){
-        User user = userService.findByName(name);
-        userService.delete(user);
+        Role role = roleService.findByName(name);
+        roleService.delete(role);
         return "ok";
     }
 

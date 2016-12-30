@@ -2,12 +2,10 @@ package com.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 
 import java.util.concurrent.LinkedBlockingDeque;
 
 @SpringBootApplication
-@EnableCaching
 public class DemoApplication {
 
 	private static LinkedBlockingDeque<Boolean> run = new LinkedBlockingDeque<Boolean>();
